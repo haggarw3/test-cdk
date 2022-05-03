@@ -1,0 +1,886 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.0.112"
+        }
+      },
+      "TestCdkStack": {
+        "id": "TestCdkStack",
+        "path": "TestCdkStack",
+        "children": {
+          "test-username": {
+            "id": "test-username",
+            "path": "TestCdkStack/test-username",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/test-username/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                  "aws:cdk:cloudformation:props": {
+                    "type": "String",
+                    "value": "awsuser",
+                    "allowedPattern": ".*",
+                    "description": "the username for redshift",
+                    "name": "database-username",
+                    "tier": "Standard"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+              "version": "2.15.0"
+            }
+          },
+          "test-password": {
+            "id": "test-password",
+            "path": "TestCdkStack/test-password",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/test-password/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                  "aws:cdk:cloudformation:props": {
+                    "type": "String",
+                    "value": "AWSUser5439",
+                    "allowedPattern": ".*",
+                    "description": "the password for redshift",
+                    "name": "database-password",
+                    "tier": "Advanced"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+              "version": "2.15.0"
+            }
+          },
+          "imported-username": {
+            "id": "imported-username",
+            "path": "TestCdkStack/imported-username",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.15.0"
+            }
+          },
+          "imported-password": {
+            "id": "imported-password",
+            "path": "TestCdkStack/imported-password",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.15.0"
+            }
+          },
+          "imported-secure-password": {
+            "id": "imported-secure-password",
+            "path": "TestCdkStack/imported-secure-password",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.15.0"
+            }
+          },
+          "Athena Query Test": {
+            "id": "Athena Query Test",
+            "path": "TestCdkStack/Athena Query Test",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.AthenaStartQueryExecution",
+              "version": "2.15.0"
+            }
+          },
+          "crawler_test_cdk_for_sns": {
+            "id": "crawler_test_cdk_for_sns",
+            "path": "TestCdkStack/crawler_test_cdk_for_sns",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Glue::Crawler",
+              "aws:cdk:cloudformation:props": {
+                "role": "arn:aws:iam::464340339497:role/service-role/AWSGlueServiceRole-Datalake",
+                "targets": {
+                  "s3Targets": [
+                    {
+                      "path": "s3://so/"
+                    }
+                  ]
+                },
+                "databaseName": "core_profile_cdk",
+                "description": "This is the crawler to read the schema of the source data from core profile dev account",
+                "name": "crawler_test_cdk_for_sns",
+                "schemaChangePolicy": {
+                  "deleteBehavior": "LOG",
+                  "updateBehavior": "UPDATE_IN_DATABASE"
+                },
+                "tablePrefix": "source_"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_glue.CfnCrawler",
+              "version": "2.15.0"
+            }
+          },
+          "lambda_crawler_sns": {
+            "id": "lambda_crawler_sns",
+            "path": "TestCdkStack/lambda_crawler_sns",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "TestCdkStack/lambda_crawler_sns/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TestCdkStack/lambda_crawler_sns/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.15.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "TestCdkStack/lambda_crawler_sns/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "TestCdkStack/lambda_crawler_sns/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "TestCdkStack/lambda_crawler_sns/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.15.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/lambda_crawler_sns/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "75dcabdef9d221be429ca20b5c2fc32a53bdfd5e7b76d19517efc43bebe09747.zip"
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "lambdacrawlersnsServiceRole094C6C5A",
+                        "Arn"
+                      ]
+                    },
+                    "handler": "lambda_crawler_sns.lambda_handler",
+                    "runtime": "python3.7",
+                    "timeout": 600
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.15.0"
+            }
+          },
+          "glue crawler source data cross account": {
+            "id": "glue crawler source data cross account",
+            "path": "TestCdkStack/glue crawler source data cross account",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/glue crawler source data cross account/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                  "aws:cdk:cloudformation:props": {
+                    "policyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "glue:*",
+                          "Effect": "Allow",
+                          "Resource": "*"
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "policyName": "gluecrawlersourcedatacrossaccount820AFFF4",
+                    "roles": [
+                      {
+                        "Ref": "lambdacrawlersnsServiceRole094C6C5A"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Policy",
+              "version": "2.15.0"
+            }
+          },
+          "Crawler Lambda SNS": {
+            "id": "Crawler Lambda SNS",
+            "path": "TestCdkStack/Crawler Lambda SNS",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.LambdaInvoke",
+              "version": "2.15.0"
+            }
+          },
+          "Topic": {
+            "id": "Topic",
+            "path": "TestCdkStack/Topic",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/Topic/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SNS::Topic",
+                  "aws:cdk:cloudformation:props": {
+                    "displayName": "testing sns notifications using cdk"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sns.CfnTopic",
+                  "version": "2.15.0"
+                }
+              },
+              "himanshu.aggarwal_ext@michelin.com": {
+                "id": "himanshu.aggarwal_ext@michelin.com",
+                "path": "TestCdkStack/Topic/himanshu.aggarwal_ext@michelin.com",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TestCdkStack/Topic/himanshu.aggarwal_ext@michelin.com/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
+                      "aws:cdk:cloudformation:props": {
+                        "protocol": "email",
+                        "topicArn": {
+                          "Ref": "TopicBFC7AF6E"
+                        },
+                        "endpoint": "himanshu.aggarwal_ext@michelin.com"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_sns.CfnSubscription",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sns.Subscription",
+                  "version": "2.15.0"
+                }
+              },
+              "himanshuagg1991@gmail.com": {
+                "id": "himanshuagg1991@gmail.com",
+                "path": "TestCdkStack/Topic/himanshuagg1991@gmail.com",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TestCdkStack/Topic/himanshuagg1991@gmail.com/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
+                      "aws:cdk:cloudformation:props": {
+                        "protocol": "email",
+                        "topicArn": {
+                          "Ref": "TopicBFC7AF6E"
+                        },
+                        "endpoint": "himanshuagg1991@gmail.com"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_sns.CfnSubscription",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sns.Subscription",
+                  "version": "2.15.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "TestCdkStack/Topic/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TestCdkStack/Topic/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SNS::TopicPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sns:Publish",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "events.amazonaws.com"
+                              },
+                              "Resource": {
+                                "Ref": "TopicBFC7AF6E"
+                              },
+                              "Sid": "0"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "topics": [
+                          {
+                            "Ref": "TopicBFC7AF6E"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_sns.CfnTopicPolicy",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sns.TopicPolicy",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_sns.Topic",
+              "version": "2.15.0"
+            }
+          },
+          "test_sns": {
+            "id": "test_sns",
+            "path": "TestCdkStack/test_sns",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "TestCdkStack/test_sns/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TestCdkStack/test_sns/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "states.",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ".amazonaws.com"
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "TestCdkStack/test_sns/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TestCdkStack/test_sns/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "lambda:InvokeFunction",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "lambdacrawlersns49FDDCE9",
+                                      "Arn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "athena:getDataCatalog",
+                                    "athena:startQueryExecution",
+                                    "athena:getQueryExecution"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":athena:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":datacatalog/AwsDataCatalog"
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":athena:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":workgroup/primary"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "s3:CreateBucket",
+                                    "s3:ListBucket",
+                                    "s3:GetBucketLocation",
+                                    "s3:GetObject"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "s3:AbortMultipartUpload",
+                                    "s3:ListBucketMultipartUploads",
+                                    "s3:ListMultipartUploadParts",
+                                    "s3:PutObject"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "arn:aws:s3:::core_profile_cdk/billing_requirement/*"
+                                },
+                                {
+                                  "Action": "lakeformation:GetDataAccess",
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "glue:BatchCreatePartition",
+                                    "glue:BatchDeletePartition",
+                                    "glue:BatchDeleteTable",
+                                    "glue:BatchGetPartition",
+                                    "glue:CreateDatabase",
+                                    "glue:CreatePartition",
+                                    "glue:CreateTable",
+                                    "glue:DeleteDatabase",
+                                    "glue:DeletePartition",
+                                    "glue:DeleteTable",
+                                    "glue:GetDatabase",
+                                    "glue:GetDatabases",
+                                    "glue:GetPartition",
+                                    "glue:GetPartitions",
+                                    "glue:GetTable",
+                                    "glue:GetTables",
+                                    "glue:UpdateDatabase",
+                                    "glue:UpdatePartition",
+                                    "glue:UpdateTable"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":glue:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":catalog"
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":glue:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":database/core_profile_cdk"
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":glue:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":table/core_profile_cdk/*"
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":glue:",
+                                          {
+                                            "Ref": "AWS::Region"
+                                          },
+                                          ":",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":userDefinedFunction/core_profile_cdk/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "testsnsRoleDefaultPolicy40D95974",
+                            "roles": [
+                              {
+                                "Ref": "testsnsRole7CA3EDEC"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.15.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/test_sns/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::StepFunctions::StateMachine",
+                  "aws:cdk:cloudformation:props": {
+                    "roleArn": {
+                      "Fn::GetAtt": [
+                        "testsnsRole7CA3EDEC",
+                        "Arn"
+                      ]
+                    },
+                    "definitionString": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{\"StartAt\":\"Crawler Lambda SNS\",\"States\":{\"Crawler Lambda SNS\":{\"Next\":\"Athena Query Test\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                          {
+                            "Fn::GetAtt": [
+                              "lambdacrawlersns49FDDCE9",
+                              "Arn"
+                            ]
+                          },
+                          "\",\"Payload.$\":\"$\"}},\"Athena Query Test\":{\"End\":true,\"Type\":\"Task\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::athena:startQueryExecution.sync\",\"Parameters\":{\"QueryString.$\":\"States.Format('select * from ')\",\"QueryExecutionContext\":{\"Database\":\"core_profile_cdk\"},\"ResultConfiguration\":{\"EncryptionConfiguration\":{\"EncryptionOption\":\"SSE_S3\"},\"OutputLocation\":\"s3://core_profile_cdk/billing_requirement/\"},\"WorkGroup\":\"primary\"}}}}"
+                        ]
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_stepfunctions.CfnStateMachine",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.StateMachine",
+              "version": "2.15.0"
+            }
+          },
+          "stepfunctions rule": {
+            "id": "stepfunctions rule",
+            "path": "TestCdkStack/stepfunctions rule",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/stepfunctions rule/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Events::Rule",
+                  "aws:cdk:cloudformation:props": {
+                    "eventPattern": {
+                      "source": [
+                        "aws.states"
+                      ],
+                      "detail": {
+                        "status": [
+                          "FAILED",
+                          "TIMED_OUT",
+                          "ABORTED"
+                        ],
+                        "stateMachineArn": [
+                          {
+                            "Ref": "testsns3477A4D8"
+                          }
+                        ]
+                      }
+                    },
+                    "state": "ENABLED",
+                    "targets": [
+                      {
+                        "id": "Target0",
+                        "arn": {
+                          "Ref": "TopicBFC7AF6E"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_events.CfnRule",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_events.Rule",
+              "version": "2.15.0"
+            }
+          },
+          "glue crawler rule": {
+            "id": "glue crawler rule",
+            "path": "TestCdkStack/glue crawler rule",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TestCdkStack/glue crawler rule/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Events::Rule",
+                  "aws:cdk:cloudformation:props": {
+                    "eventPattern": {
+                      "source": [
+                        "aws.glue"
+                      ],
+                      "account": [
+                        "464340339497"
+                      ],
+                      "region": [
+                        "us-east-1"
+                      ],
+                      "detail": {
+                        "crawlerName": [
+                          "crawler_test_cdk_for_sns"
+                        ],
+                        "state": [
+                          "Failed"
+                        ],
+                        "message": [
+                          "Crawler Failed"
+                        ]
+                      }
+                    },
+                    "state": "ENABLED",
+                    "targets": [
+                      {
+                        "id": "Target0",
+                        "arn": {
+                          "Ref": "TopicBFC7AF6E"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_events.CfnRule",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_events.Rule",
+              "version": "2.15.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "TestCdkStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "TestCdkStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.15.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "TestCdkStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.0.112"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.15.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.15.0"
+    }
+  }
+}

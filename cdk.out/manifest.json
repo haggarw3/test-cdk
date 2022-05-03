@@ -1,0 +1,160 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "TestCdkStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "TestCdkStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "TestCdkStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "TestCdkStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/42045fb0fcc42dfe7b29fb24f8740daaf74f6ef6f3638771a8bc2b820bc32536.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "TestCdkStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "TestCdkStack.assets"
+      ],
+      "metadata": {
+        "/TestCdkStack/test-username/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "testusername8C6B24FC"
+          }
+        ],
+        "/TestCdkStack/test-password/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "testpassword461A4367"
+          }
+        ],
+        "/TestCdkStack/crawler_test_cdk_for_sns": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "crawlertestcdkforsns"
+          }
+        ],
+        "/TestCdkStack/lambda_crawler_sns/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lambdacrawlersnsServiceRole094C6C5A"
+          }
+        ],
+        "/TestCdkStack/lambda_crawler_sns/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lambdacrawlersns49FDDCE9"
+          }
+        ],
+        "/TestCdkStack/glue crawler source data cross account/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "gluecrawlersourcedatacrossaccount820AFFF4"
+          }
+        ],
+        "/TestCdkStack/Topic/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TopicBFC7AF6E"
+          }
+        ],
+        "/TestCdkStack/Topic/himanshu.aggarwal_ext@michelin.com/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TopichimanshuaggarwalextmichelincomBFD6C7CD"
+          }
+        ],
+        "/TestCdkStack/Topic/himanshuagg1991@gmail.com/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Topichimanshuagg1991gmailcomD9CB39D5"
+          }
+        ],
+        "/TestCdkStack/Topic/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TopicPolicyA1747468"
+          }
+        ],
+        "/TestCdkStack/test_sns/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "testsnsRole7CA3EDEC"
+          }
+        ],
+        "/TestCdkStack/test_sns/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "testsnsRoleDefaultPolicy40D95974"
+          }
+        ],
+        "/TestCdkStack/test_sns/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "testsns3477A4D8"
+          }
+        ],
+        "/TestCdkStack/stepfunctions rule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stepfunctionsrule1329934D"
+          }
+        ],
+        "/TestCdkStack/glue crawler rule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "gluecrawlerrule626B78B2"
+          }
+        ],
+        "/TestCdkStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/TestCdkStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/TestCdkStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/TestCdkStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "TestCdkStack"
+    }
+  }
+}
